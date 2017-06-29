@@ -1,0 +1,34 @@
+.container
+  .row
+    .col.m12
+      .card
+        .card-content
+          h4.content-title 登録内容
+
+          = form_for [archive, archive_asset], html: { multipart: true } do |f|
+
+            = render "shared/error", model: archive_asset
+
+            .row
+              .col.m12
+                = "資料: #{archive.name} "
+
+            .row
+              .file-field.input-field.col.m12
+                .btn.blue-grey.darken-3
+                  span
+                    = ArchiveAsset.human_attribute_name(:image)
+                  = f.file_field :image
+
+                .file-path-wrapper
+                  input.file-path type="text"
+
+            br
+
+            .row
+              .col.m12
+                .left
+                  = f.submit class: "btn"
+
+                .right
+                  = link_to t("shared.label.cancel"), archive_archive_assets_url(archive), class: "btn red"

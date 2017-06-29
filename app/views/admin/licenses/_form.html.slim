@@ -1,0 +1,55 @@
+.container
+  .row
+    .col.m12
+      .card
+        .card-content
+          h4.content-title ライセンス登録内容
+
+          = form_for [:admin, license] do |f|
+
+            = render "shared/error", model: license
+
+            .row
+              .input-field.col.m2
+                = f.number_field :code
+                = f.label :code
+
+            .row
+              .input-field.col.m6
+                = f.text_field :name
+                = f.label :name
+
+            .row
+              .col.m6
+                div style="width: 100px; display:inline-block;"
+                  = License.human_attribute_name :content_type
+
+                - License.content_types.each do |k, v|
+                  span style="margin-right: 20px;"
+                    = f.radio_button :content_type, k, checked: license.send("#{k}?")
+                    = f.label :content_type,
+                      License.translate_enum_label(:content_type, k), value: k
+
+            .row
+              .input-field.col.m12
+                = f.text_area :content, class: "materialize-textarea"
+                = f.label :content
+
+            .row
+              .col.m6
+                div style="width: 100px; display:inline-block;"
+                  = License.human_attribute_name :enabled
+                span style="margin-right: 20px;"
+                  = f.radio_button :enabled, true, checked: license.enabled?
+                  = f.label :enabled, t("shared.label.enabled"), value: true
+                span
+                  = f.radio_button :enabled, false, checked: !license.enabled?
+                  = f.label :enabled, t("shared.label.disabled"), value: false
+            br
+            .row
+              .col.m12
+                .left
+                  = f.submit class: "btn"
+
+                .right
+                  = link_to t("shared.label.cancel"), admin_licenses_url, class: "btn red"

@@ -1,0 +1,16 @@
+ja:
+  archives:
+   index:
+     label:
+       table: "資料一覧"
+       import: データインポート
+
+     confirm:
+       enable: "選択した資料を公開します。よろしいですか？"
+       disable: "選択した資料を非公開にします。よろしいですか？"
+
+   form:
+     label:
+       tag: "タグ自動生成"
+     placeholder:
+       tag: "カンマ区切りで複数指定できます"

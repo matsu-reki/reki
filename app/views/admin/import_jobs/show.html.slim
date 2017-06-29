@@ -1,0 +1,37 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m3
+          .left
+            div.content-title
+              = t("admin.import_jobs.show.title")
+
+        .col.m9
+          .right
+            = link_to admin_import_jobs_url,
+                title: t("admin.import_jobs.show.label.back"),
+                class: "btn-floating blue-grey darken-3" do
+              i.material-icons view_list
+
+
+      .row.fixed-height
+        .col.m12
+          - if @import_job.import_job_errors.present?
+            table.bordered
+              thead
+                tr
+                  th.name = ImportJobError.human_attribute_name(:name)
+                  th.content = ImportJobError.human_attribute_name(:content)
+
+                tbody
+                  - @import_job.import_job_errors.each do |error|
+                    tr
+                      td.name
+                        = error.name
+
+                      td.content
+                        = simple_format(h(error.content))
+          - else
+           span
+            = t("admin.import_jobs.show.label.no_errors")

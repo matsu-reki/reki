@@ -1,0 +1,35 @@
+.container
+  .row
+    .col.m12
+      .card
+        .card-content
+          h4.content-title 登録内容
+
+          = form_for @archive, url: update_image_archive_path(@archive),
+            method: :patch, html: { multipart: true } do |f|
+
+            = render "shared/error", model: @archive
+
+            .row
+              .col.m12
+                = "資料: #{@archive.name} "
+
+            .row
+              .file-field.input-field.col.m12
+                .btn
+                  span サムネイル画像
+                  = f.file_field :represent_image
+
+                .file-path-wrapper
+                  input.file-path type="text"
+
+            br
+
+            .row
+              .col.m12
+                .left
+                  = f.submit class: "btn"
+
+                .right
+                  = link_to t("shared.label.cancel"),
+                    archive_archive_assets_url(@archive), class: "btn red"

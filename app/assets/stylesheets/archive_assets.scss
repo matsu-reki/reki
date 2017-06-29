@@ -1,0 +1,27 @@
+#archive_assets-index {
+  .image-title {
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .image-action {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .image-content {
+    padding: 10px 0;
+    height: 250px;
+
+    img {
+      display: block;
+      height: auto;
+      max-height: 230px;
+      width: auto;
+      max-width: 100%;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+}

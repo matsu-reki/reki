@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    attributes:
+      archive_asset:
+        image: 画像
+        image_content_type: ファイル形式
+        image_file_name: ファイル名
+        image_file_size: ファイルサイズ
+
+        created_at: 作成日時
+        updated_at: 更新日時

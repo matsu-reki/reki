@@ -1,0 +1,74 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m6
+          div.content-title 検索条件
+
+          = form_for :q, url: admin_users_path, method: :get do |f|
+            .row
+              .input-field.col.m6
+                = f.text_field :name_or_email_or_login_cont_any
+                = f.label :name_or_email_or_login_cont_any, t("shared.label.keyword")
+              .col.m3 style="padding-top: 20px;"
+                = f.submit t("shared.label.search"), class: "btn"
+
+      .row
+        .col.m3
+          .left
+            div.content-title ユーザ一覧
+        .col.m9
+          .right
+            = link_to new_admin_user_url,
+                title: "新規登録",
+                class: "btn-floating blue-grey darken-3" do
+              i.material-icons person_add
+
+      .row.fixed-height
+        .col.m12
+          table.bordered
+            thead
+              tr
+                th = User.human_attribute_name :login
+                th = User.human_attribute_name :name
+                th = User.human_attribute_name :email
+                th = User.human_attribute_name :role
+                th.center-align = User.human_attribute_name :enabled
+                th = User.human_attribute_name :updated_at
+                th = t("shared.label.operation")
+
+            tbody
+              - @users.each do |user|
+                tr class="#{user.enabled? ? "" : "grey lighten-3"}"
+                  td = user.login
+                  td = user.name
+                  td = user.email
+                  td = user.role_t
+                  td.center-align
+                    - if user.enabled?
+                      span
+                        i.material-icons panorama_fish_eye
+                    - else
+                      span.red-text
+                        i.material-icons close
+
+                  td = l user.updated_at
+                  td
+                    = link_to edit_admin_user_path(user),
+                      class: "btn-floating blue-grey darken-3",
+                      style: "margin-right: 10px;" do
+                      i.material-icons mode_edit
+                    - if user.id != current_user.id
+                      = link_to admin_user_path(user),
+                          class: "btn-floating red",
+                          data: { confirm: t("shared.confirm.delete", target: user.name) },
+                          method: :delete do
+                        i.material-icons delete
+
+      .row
+        .col.m12
+          .left
+            = entries_info @users
+
+          .right
+            = paginate @users

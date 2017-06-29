@@ -1,0 +1,4 @@
+- unless current_page.first?
+  li
+    = link_to url, remote: remote, method: request.request_method_symbol do
+      i.material-icons chevron_left

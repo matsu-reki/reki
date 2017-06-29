@@ -1,0 +1,3 @@
+<% if @tag_labels.present? -%>
+  $("#archive_tag_labels").val("<%= j @tag_labels.join(",") %>")
+<% end -%>

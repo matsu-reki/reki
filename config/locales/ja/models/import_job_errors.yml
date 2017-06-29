@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      import_job_error:
+        content: エラー内容
+        name: 名称
+
+        created_at: 作成日時
+        updated_at: 更新日時

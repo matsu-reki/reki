@@ -1,0 +1,65 @@
+.container
+  .row
+    .col.m12
+      .card
+        .card-content
+          h4.content-title ユーザ登録内容
+
+          = form_for [:admin, user] do |f|
+
+            = render "shared/error", model: user
+
+            .row
+              .input-field.col.m6
+                = f.text_field :login
+                = f.label :login
+
+            .row
+              .input-field.col.m6
+                = f.text_field :name
+                = f.label :name
+
+            .row
+              .input-field.col.m6
+                = f.text_field :email
+                = f.label :email
+
+            .row
+              .col.m6
+                div style="width: 80px; display:inline-block;"
+                  = User.human_attribute_name :role
+                span style="margin-right: 20px;"
+                  = f.radio_button :role, :admin, checked: user.admin?
+                  = f.label :role, User.translate_enum_label(:role, :admin), value: :admin
+                span
+                  = f.radio_button :role, :standard, checked: user.standard?
+                  = f.label :role, User.translate_enum_label(:role, :standard), value: :standard
+
+            .row
+              .col.m6
+                div style="width: 80px; display:inline-block;"
+                  = User.human_attribute_name :enabled
+                span style="margin-right: 20px;"
+                  = f.radio_button :enabled, true, checked: user.enabled?
+                  = f.label :enabled, t("shared.label.enabled"), value: true
+                span
+                  = f.radio_button :enabled, false, checked: !user.enabled?
+                  = f.label :enabled, t("shared.label.disabled"), value: false
+
+            .row
+              .input-field.col.m6
+                = f.password_field :password, value: user.password
+                = f.label :password
+
+            .row
+              .input-field.col.m6
+                = f.password_field :password_confirmation, value: user.password_confirmation
+                = f.label :password_confirmation
+
+            .row
+              .col.m12
+                .left
+                  = f.submit class: "btn"
+
+                .right
+                  = link_to t("shared.label.cancel"), admin_users_url, class: "btn red"

@@ -1,0 +1,5 @@
+ja:
+  admin:
+    categories:
+      destroy:
+        failure: 使用中の分類は削除できません。

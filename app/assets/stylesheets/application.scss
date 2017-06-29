@@ -1,0 +1,95 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
+@import "materialize/components/color";
+$primary-color  : color("indigo", "base") !default;
+$secondary-color: color("indigo", "base") !default;
+$success-color  : color("teal",   "base") !default;
+$error-color    : color("red",    "base") !default;
+$link-color     : color("blue",   "darken-1") !default;
+@import 'materialize';
+
+html, body {
+  height: 100%;
+  width : 100%;
+}
+
+body {
+  background-color: #ece9e3;
+}
+
+.container.lg {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 15px;
+}
+
+.dropdown-content.lg {
+  width: 200px !important;
+}
+
+.navbar-fixed {
+  z-index: 999;
+
+  span.nav-alert {
+    padding-right: 10px;
+  }
+}
+
+.success-text {
+  color: color("green", "darken-4");
+}
+
+.warning-text {
+  color: color("orange", "darken-4");
+}
+
+.alert-text {
+  color: color("red", "base");
+}
+
+.default-text {
+  color: color("grey", "base");
+}
+
+.text-info {
+  color: color("blue", "base");
+}
+
+.content-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.btn-group > [class*="btn"]  {
+  margin-right: 10px;
+}
+
+table tr th,
+table tr td {
+  [type="checkbox"] + label {
+    margin-top: 10px;
+  }
+}
+
+.fixed-height {
+  overflow-y: auto;
+  visibility: hidden;
+}
+
+#error-page {
+  .card-title {
+    font-size: 1.8rem;
+
+    i.material-icons {
+      font-size: 1.8rem;
+      margin-right: 10px;
+    }
+  }
+
+  .card-body {
+    margin: 50px 0;
+  }
+}

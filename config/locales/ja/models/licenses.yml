@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    attributes:
+      license:
+        enabled: 使用可否
+        code: コード
+        content: 内容
+        content_type: 種別
+        name: ライセンス名
+
+        created_at: 作成日時
+        updated_at: 更新日時
+
+    enums:
+      license:
+        content_type:
+          url: URL
+          text: テキスト

@@ -1,0 +1,9 @@
+= paginator.render do
+  ul.pagination
+    = raw first_page_tag unless current_page.first?
+    - each_page do |page|
+      - if page_number_render?(page)
+        = raw page_tag page
+      - elsif !page.was_truncated?
+        = raw gap_tag
+    = raw last_page_tag unless current_page.last?

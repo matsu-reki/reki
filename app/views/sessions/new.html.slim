@@ -1,0 +1,33 @@
+#login-box.container
+  .row
+    .col.l2.m1.s0
+    .col.l8.m10.s12
+      .card
+        .card-content
+            = form_for :session, url: sessions_path do |f|
+              .row
+                .col.l12.m12.s12.center-align
+                  span.card-title.login-title
+                    | 松江G空間ミュージアム
+                    br
+                    | 管理者専用サイト
+
+              - if flash[:alert].present?
+                .row
+                  .col.l12.m12.center-align
+                    = render "shared/flash"
+
+              .row
+                .input-field.col.l12.m12.s12
+                  i.material-icons.prefix person
+                  = f.text_field :login, placeholder: "ユーザID"
+
+              .row
+                .input-field.col.l12.m12.s12
+                  i.material-icons.prefix lock
+                  = f.password_field :password, placeholder: "パスワード"
+
+              .row
+                .col.m12
+                  .right
+                    = f.submit 'ログイン', class: "btn"

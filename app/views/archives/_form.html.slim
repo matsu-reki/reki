@@ -1,0 +1,127 @@
+.container
+  .row
+    .col.m12
+      .card
+        .card-content
+          h4.content-title
+            = "#{Archive.model_name.human}  #{t("shared.label.form")}"
+
+          = form_for archive, html: { multipart: true } do |f|
+
+            = render "shared/error", model: archive
+
+            .row
+              .input-field.col.m6
+                = f.select :category_id, archive_category_options(archive),
+                  {  }, { class: "materialize-select" }
+                = f.label :category_id
+
+            .row
+              .input-field.col.m6
+                = f.select :license_id, archive_license_options(archive),
+                  {  }, { class: "materialize-select" }
+                = f.label :license_id
+
+            .row
+              .input-field.col.m12
+                = f.text_field :name
+                = f.label :name
+
+            .row
+              .input-field.col.m6
+                = f.text_field :author
+                = f.label :author
+
+              .input-field.col.m3
+                = f.text_field :created_begin_on, placeholder: "1800/1/1"
+                = f.label :created_begin_on
+
+              .input-field.col.m3
+                = f.text_field :created_end_on, placeholder: "1900/3/31"
+                = f.label :created_end_on
+
+            .row
+              .input-field.col.m6
+                = f.text_field :owner
+                = f.label :owner
+
+            .row
+              .input-field.col.m12
+                = f.text_area :description, class: "materialize-textarea"
+                = f.label :description
+
+            .row
+              .input-field.col.m8
+                = f.text_area :tag_labels, class: "materialize-textarea",
+                  placeholder: t("archives.form.placeholder.tag")
+                = f.label :tag_labels
+              .input-field.col.m4
+                a#btn-extract-tag.btn.blue-grey.darken-3
+                  = t("archives.form.label.tag")
+
+            #fieldset-coordinate.row
+              .input-field.col.m8
+                = f.text_field :location
+                = f.label :location
+
+              .input-field.col.m2
+                = f.text_field :latitude
+                = f.label :latitude
+
+              .input-field.col.m2
+                = f.text_field :longitude
+                = f.label :longitude
+
+            #fieldset-maptile.row
+              .file-field.input-field.col.m12
+                .btn.blue-grey.darken-3
+                  span = Archive.human_attribute_name(:map_file)
+                  = f.file_field :map_file
+
+                .file-path-wrapper
+                  input.file-path type="text"
+
+            .row
+              .input-field.col.m12
+                = f.text_area :note, class: "materialize-textarea"
+                = f.label :note
+
+            .row
+              .file-field.input-field.col.m12
+                .btn.blue-grey.darken-3
+                  span = Archive.human_attribute_name(:represent_image)
+                  = f.file_field :represent_image
+
+                .file-path-wrapper
+                  input.file-path type="text"
+
+            .row
+              .file-field.input-field.col.m12
+                .btn.blue-grey.darken-3
+                  span = Archive.human_attribute_name(:images)
+                  = f.file_field :images, multiple: true
+
+                .file-path-wrapper
+                  input.file-path type="text"
+
+            - if current_user.admin?
+              .row
+                .col.m6
+                  div style="width: 100px; display:inline-block;"
+                    = Archive.human_attribute_name :enabled
+                  span style="margin-right: 20px;"
+                    = f.radio_button :enabled, true, checked: archive.enabled?
+                    = f.label :enabled, t("shared.label.enabled"), value: true
+                  span
+                    = f.radio_button :enabled, false, checked: !archive.enabled?
+                    = f.label :enabled, t("shared.label.disabled"), value: false
+
+            br
+
+            .row
+              .col.m12
+                .left
+                  = f.submit class: "btn"
+
+                .right
+                  = link_to t("shared.label.cancel"), archives_url, class: "btn red"

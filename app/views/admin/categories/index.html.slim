@@ -1,0 +1,71 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m6
+          div.content-title 検索条件
+
+          = form_for :q, url: admin_categories_path, method: :get do |f|
+            .row
+              .input-field.col.m2
+                = f.text_field :code_eq
+                = f.label :code_eq, Category.human_attribute_name(:code)
+              .input-field.col.m5
+                = f.text_field :name_cont_any
+                = f.label :name_cont_any, Category.human_attribute_name(:name)
+              .col.m5 style="padding-top: 20px;"
+                = f.submit t("shared.label.search"), class: "btn"
+        .col.m6
+
+      .row
+        .col.m3
+          .left
+            div.content-title 分類一覧
+
+        .col.m9
+          .right
+            = link_to new_admin_category_url,
+                title: "新規登録",
+                class: "btn-floating blue-grey darken-3" do
+              i.material-icons add
+
+      .row.fixed-height
+        .col.m12
+          table.bordered
+            thead
+              tr
+                th = Category.human_attribute_name(:code)
+                th = Category.human_attribute_name(:name)
+                th.center-align = User.human_attribute_name :enabled
+                th = Category.human_attribute_name(:updated_at)
+                th = t("shared.label.operation")
+
+            tbody
+              - @categories.each do |category|
+                tr class="#{category.enabled? ? "" : "grey lighten-3"}"
+                  td = category.code
+                  td = category.name
+                  td.center-align
+                    - if category.enabled?
+                      span
+                        i.material-icons panorama_fish_eye
+                    - else
+                      span.red-text
+                        i.material-icons close
+                  td = l category.updated_at
+                  td
+                    = link_to edit_admin_category_path(category), class: "btn-floating blue-grey darken-3",
+                      style: "margin-right: 10px;" do
+                      i.material-icons mode_edit
+                    = link_to admin_category_path(category), class: "btn-floating red",
+                        data: { confirm: t("shared.confirm.delete", target: category.name) },
+                        method: :delete do
+                      i.material-icons delete
+
+      .row
+        .col.m12
+          .left
+            = entries_info @categories
+
+          .right
+            = paginate @categories

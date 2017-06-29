@@ -1,0 +1,42 @@
+#archives-index {
+  table {
+    th.check_all, td.check_all {
+      width: 50px;
+      text-align: center;
+    }
+
+    th.category_name, td.category_name {
+      width: 150px;
+    }
+
+    th.name, td.name {
+      width: auto;
+    }
+
+    th.enabled, td.enabled {
+      width: 100px;
+      text-align: center;
+    }
+
+    th.updated_user_id, td.updated_user_id {
+      width: 150px;
+    }
+
+    th.updated_at, td.updated_at {
+      width: 200px;
+    }
+
+    th.operation, td.operation {
+      width: 180px;
+    }
+  }
+}
+
+#archives-new,
+#archives-edit {
+
+  .file-field > .btn {
+    min-width: 180px;
+  }
+
+}

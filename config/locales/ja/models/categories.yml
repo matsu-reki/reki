@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    attributes:
+      category:
+        code: コード
+        enabled: 使用可否
+        name: 名称
+
+        created_at: 作成日時
+        updated_at: 更新日時

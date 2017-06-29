@@ -1,0 +1,77 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m6
+          div.content-title 検索条件
+
+          = form_for :q, url: admin_licenses_path, method: :get do |f|
+            .row
+              .input-field.col.m2
+                = f.text_field :code_eq
+                = f.label :code_eq, License.human_attribute_name(:code)
+              .input-field.col.m5
+                = f.text_field :name_cont_any
+                = f.label :name_cont_any, License.human_attribute_name(:name)
+              .col.m5 style="padding-top: 20px;"
+                = f.submit t("shared.label.search"), class: "btn"
+
+      .row
+        .col.m3
+          .left
+            div.content-title ライセンス一覧
+        .col.m9
+          .right
+            = link_to new_admin_license_url,
+                title: "新規登録",
+                class: "btn-floating  blue-grey darken-3" do
+              i.material-icons add
+
+      .row.fixed-height
+        .col.m12
+          table.bordered
+            thead
+              tr
+                th = License.human_attribute_name(:code)
+                th = License.human_attribute_name(:name)
+                th.center-align = User.human_attribute_name :enabled
+                th = License.human_attribute_name(:updated_at)
+                th = t("shared.label.operation")
+
+            tbody
+              - @licenses.each do |license|
+                tr class="#{license.enabled? ? "" : "grey lighten-3"}"
+                  td = license.code
+                  td = license.name
+                  td.center-align
+                    - if license.enabled?
+                      span
+                        i.material-icons panorama_fish_eye
+                    - else
+                      span.red-text
+                        i.material-icons close
+                  td = l license.updated_at
+                  td
+                    .btn-group
+                      = link_to edit_admin_license_path(license),
+                        class: "btn-floating blue-grey darken-3"
+                        i.material-icons mode_edit
+                      - if license.text?
+                        = link_to admin_license_path(license),
+                          class: "btn-floating blue-grey darken-3",
+                          target: "_blank"
+                          i.material-icons pageview
+
+                      = link_to admin_license_path(license),
+                          class: "btn-floating red",
+                          data: { confirm: t("shared.confirm.delete", target: license.name) },
+                          method: :delete do
+                        i.material-icons delete
+
+      .row
+        .col.m12
+          .left
+            = entries_info @licenses
+
+          .right
+            = paginate @licenses

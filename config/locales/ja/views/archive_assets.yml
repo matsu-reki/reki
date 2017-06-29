@@ -1,0 +1,3 @@
+ja:
+  archive_assets:
+    limit: "%{limit} ファイル以上登録できません。"

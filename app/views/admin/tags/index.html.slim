@@ -1,0 +1,69 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m6
+          div.content-title 検索条件
+
+          = form_for :q, url: admin_tags_path, method: :get do |f|
+            .row
+              .input-field.col.m6
+                = f.text_field :name_cont_any
+                = f.label :name_cont_any, Tag.human_attribute_name(:name)
+              .col.m3 style="padding-top: 20px;"
+                = f.submit t("shared.label.search"), class: "btn"
+
+      .row
+        .col.m3
+          .left
+            div.content-title タグ一覧
+        .col.m9
+          .right
+            = link_to new_admin_tag_url,
+                title: "新規登録",
+                class: "btn-floating blue-grey darken-3" do
+              i.material-icons add
+
+      .row.fixed-height
+        .col.m12
+          table.bordered
+            thead
+              tr
+                th = Tag.human_attribute_name :name
+                th.align-right = Tag.human_attribute_name :archive_count
+                th.center-align = Tag.human_attribute_name :enabled
+                th = Tag.human_attribute_name :updated_at
+                th = t("shared.label.operation")
+
+            tbody
+              - @tags.each do |tag|
+                tr class="#{tag.enabled? ? "" : "grey lighten-3"}"
+                  td = tag.name
+                  td.align-right
+                    = tag.archive_tags.count
+                  td.center-align
+                    - if tag.enabled?
+                      span
+                        i.material-icons panorama_fish_eye
+                    - else
+                      span.red-text
+                        i.material-icons close
+
+                  td = l tag.updated_at
+                  td
+                    = link_to edit_admin_tag_path(tag), class: "btn-floating blue-grey darken-3",
+                      style: "margin-right: 10px;" do
+                      i.material-icons mode_edit
+
+                    = link_to admin_tag_path(tag), class: "btn-floating red",
+                        data: { confirm: t("shared.confirm.delete", target: tag.name) },
+                        method: :delete do
+                      i.material-icons delete
+
+      .row
+        .col.m12
+          .left
+            = entries_info @tags
+
+          .right
+            = paginate @tags

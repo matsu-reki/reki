@@ -1,0 +1,38 @@
+.container
+  .row
+    .col.m12
+      .card
+        .card-content
+          h4.content-title 登録内容
+
+          = form_for @user do |f|
+
+            = render "shared/error", model: @user
+
+            .row
+              .input-field.col.m6
+                = f.text_field :name
+                = f.label :name
+
+            .row
+              .input-field.col.m6
+                = f.text_field :email
+                = f.label :email
+
+            .row
+              .input-field.col.m6
+                = f.password_field :password, value: @user.password
+                = f.label :password
+
+            .row
+              .input-field.col.m6
+                = f.password_field :password_confirmation, value: @user.password_confirmation
+                = f.label :password_confirmation
+
+            .row
+              .col.m12
+                .left
+                  = f.submit class: "btn"
+
+                .right
+                  = link_to t("shared.label.cancel"), root_url, class: "btn red"

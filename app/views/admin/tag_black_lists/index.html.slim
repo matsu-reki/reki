@@ -1,0 +1,68 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m6
+          div.content-title 検索条件
+
+          = form_for :q, url: admin_tag_black_lists_path, method: :get do |f|
+            .row
+              .input-field.col.m6
+                = f.text_field :name_cont_any
+                = f.label :name_cont_any, TagBlackList.human_attribute_name(:name)
+              .col.m3 style="padding-top: 20px;"
+                = f.submit t("shared.label.search"), class: "btn"
+
+      .row
+        .col.m3
+          .left
+            div.content-title タグ禁止用語一覧
+        .col.m9
+          .right
+            = link_to new_admin_tag_black_list_url,
+                title: "新規登録",
+                class: "btn-floating blue-grey darken-3" do
+              i.material-icons add
+
+      .row.fixed-height
+        .col.m12
+          table.bordered
+            thead
+              tr
+                th = TagBlackList.human_attribute_name :name
+                th.center-align = TagBlackList.human_attribute_name :enabled
+                th = TagBlackList.human_attribute_name :updated_at
+                th = t("shared.label.operation")
+
+            tbody
+              - @tag_black_lists.each do |tag_black_list|
+                tr class="#{tag_black_list.enabled? ? "" : "grey lighten-3"}"
+                  td = tag_black_list.name
+                  td.center-align
+                    - if tag_black_list.enabled?
+                      span
+                        i.material-icons panorama_fish_eye
+                    - else
+                      span.red-text
+                        i.material-icons close
+
+                  td = l tag_black_list.updated_at
+                  td
+                    = link_to edit_admin_tag_black_list_path(tag_black_list),
+                        class: "btn-floating blue-grey darken-3",
+                        style: "margin-right: 10px;" do
+                      i.material-icons mode_edit
+
+                    = link_to admin_tag_black_list_path(tag_black_list),
+                        class: "btn-floating red",
+                        data: { confirm: t("shared.confirm.delete", target: tag_black_list.name) },
+                        method: :delete do
+                      i.material-icons delete
+
+      .row
+        .col.m12
+          .left
+            = entries_info @tag_black_lists
+
+          .right
+            = paginate @tag_black_lists

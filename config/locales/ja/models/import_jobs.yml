@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    attributes:
+      import_job:
+        user_id: 実行ユーザ
+        state: 処理状況
+
+        created_at: 作成日時
+        updated_at: 更新日時
+
+    enums:
+       import_job:
+        state:
+          progress: 実行中
+          done: 完了

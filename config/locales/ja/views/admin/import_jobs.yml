@@ -1,0 +1,11 @@
+ja:
+  admin:
+    import_jobs:
+     index:
+       title: "ジョブ一覧"
+
+     show:
+       title: "実行結果"
+       label:
+         no_errors: エラーはありませんでした。
+         back: ジョブ一覧

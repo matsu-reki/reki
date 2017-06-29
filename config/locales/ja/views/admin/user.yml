@@ -1,0 +1,5 @@
+ja:
+  admin:
+    users:
+      destroy:
+        failure: 指定のユーザは削除できません。

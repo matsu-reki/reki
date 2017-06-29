@@ -1,0 +1,33 @@
+ja:
+  activerecord:
+    attributes:
+      archive:
+        author: 作者
+        category_id: 分類
+        created_begin_on: 年代（始期）
+        created_end_on: 年代（終期）
+        description: 説明
+        enabled: 公開可否
+        images: 画像
+        latitude: 緯度
+        license_id: ライセンス
+        location: 場所
+        longitude: 経度
+        lonlat: 緯度・経度
+        map_file: 地図タイル画像
+        name: 名称
+        note: 備考
+        owner: 所有者
+        represent_image: サムネイル画像
+        tag_labels: タグ
+        updated_user_id: 更新者
+
+        created_at: 作成日時
+        updated_at: 更新日時
+
+    errors:
+      models:
+        archive:
+          attributes:
+            tag_labels:
+              less_than_or_equal_to: "の数は%{count}以下にしてください"

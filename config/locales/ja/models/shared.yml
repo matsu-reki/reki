@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      archive: 資料
+      archive_asset: 資料画像
+      category: 分類
+      license: ライセンス
+      tag: タグ
+      tag_black_list: タグ禁止用語
+      user: ユーザ

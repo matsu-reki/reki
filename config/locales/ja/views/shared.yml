@@ -1,0 +1,63 @@
+ja:
+  shared:
+    title: 松江G空間ミュージアム 管理者専用サイト
+
+    confirm:
+      delete: '%{target} を削除しますか？'
+      cancel: 編集した内容が破棄されます。キャンセルしますか？
+
+    label:
+      form: 登録内容
+      operation : 操作
+      new: 新規登録
+      edit: 編集
+      delete: 削除
+      show: 詳細
+      search: 検索
+      search_conditions: 検索条件
+      back: 戻る
+      cancel: キャンセル
+      keyword: キーワード
+      enabled: 使用可能
+      disabled: 使用不可
+
+    alert:
+      resource_not_found: 処理に失敗しました。対象データが見つかりません。
+      failure: 処理に失敗しました。はじめから操作をやり直してください。
+      confirm_delete: 削除しますか？
+      confirm_cancel: 編集した内容が破棄されます。キャンセルしますか？
+      login_required: ログインしてください。
+      admin_required: アクセスできません。
+      import_job_in_progress: データインポート中は、各種データの登録・変更・削除はできません。
+
+    button:
+      submitting: 送信中...
+
+    crud:
+      create: '%{target} を作成しました'
+      update: '%{target} を更新しました'
+      destroy: '%{target} を削除しました'
+
+  helpers:
+    submit:
+      create: "登録する"
+      update: "更新する"
+      submit: "保存する"
+
+    label:
+      session:
+        login: "ユーザID"
+        password: "パスワード"
+
+    entries_info:
+      one_page:
+        display_entries:
+          zero: "データが見つかりません"
+          one: "1 件 表示"
+          other: "全 %{count} 件 表示"
+      more_pages:
+        display_entries: "全 %{total} 件中 %{first}&nbsp;-&nbsp;%{last} 件 表示"
+
+  sessions:
+    create:
+      failure: IDまたはパスワードに誤りがあります。

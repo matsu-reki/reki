@@ -1,0 +1,52 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m6
+          span.content-title 資料画像一覧
+
+        - unless @archive.assets_limit?
+          .col.m6
+            .right
+              .btn-group
+                = link_to archives_url,
+                    title: "資料一覧",
+                    class: "btn-floating blue-grey darken-3" do
+                      i.material-icons list
+
+                = link_to new_archive_archive_asset_url(@archive),
+                    title: "新規登録",
+                    class: "btn-floating blue-grey darken-3" do
+                      i.material-icons add
+
+      .row
+        .col.m3
+          .image-title サムネイル画像
+
+          .image-content
+            = link_to image_path(@archive.represent_image.url), target: "_blank" do
+              = image_tag @archive.represent_image.url
+
+          .image-action
+              = link_to edit_image_archive_url(@archive),
+                class: "btn-floating waves-effect waves-right" do
+                i.material-icons mode_edit
+
+        - @archive.archive_assets.order(:id).each.with_index(1) do |a, i|
+          .col.m3
+            .image-title
+              = a.image.original_filename
+            .image-content
+              = link_to image_path(a.image.url(:original)), target: "_blank" do
+                = image_tag a.image.url(:thumb)
+
+            .image-action
+              .btn-group
+                = link_to edit_archive_archive_asset_url(@archive, a),
+                  class: "btn-floating waves-effect waves-right" do
+                  i.material-icons mode_edit
+
+                = link_to archive_archive_asset_url(@archive, a), method: :delete,
+                  data: { confirm: t("shared.confirm.delete", target: "画像") },
+                  class: "btn-floating waves-effect waves-right red" do
+                  i.material-icons delete

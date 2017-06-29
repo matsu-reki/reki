@@ -1,0 +1,125 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m12
+          div.content-title
+            = t("shared.label.search_conditions")
+
+          = form_for :q, url: archives_path, method: :get do |f|
+            .row
+              .input-field.col.m2
+                = f.select :category_id_eq, archive_category_options,
+                  { include_blank: true }, { class: "materialize-select" }
+                = f.label :category_id_eq, Archive.human_attribute_name(:category_id)
+              .input-field.col.m4
+                = f.text_field :name_cont_any
+                = f.label :name_cont_any, Archive.human_attribute_name(:name)
+              .input-field.col.m4
+                = f.text_field :tags_name_eq
+                = f.label :tags_name_eq, Tag.human_attribute_name(:name)
+              .col.m2 style="padding-top: 20px;"
+                = f.submit t("shared.label.search"), class: "btn"
+
+      = form_for :archives,
+          url: update_enabled_archives_path(q: params[:q], page: params[:page]),
+          method: :patch do |f|
+
+        .row
+          .col.m8
+            .left
+              div.content-title
+                = t("archives.index.label.table")
+
+          .col.m4
+            .right
+              .btn-group
+                = link_to new_archive_url,
+                    title: t("shared.label.new"),
+                    class: "btn-floating blue-grey darken-3" do
+                  i.material-icons add
+
+                - if current_user.admin?
+                  = link_to admin_import_jobs_url,
+                      title: t("archives.index.label.import"),
+                      class: "btn-floating blue-grey darken-3",
+                      method: :post do
+                    i.material-icons backup
+
+                  = button_tag type: "submit", class: "btn-floating",
+                      name: "enable",
+                      data: {confirm: t("archives.index.confirm.enable") } do
+                    i.material-icons visibility
+
+                  = button_tag type: "submit", class: "btn-floating red",
+                      name: "disable",
+                      data: {confirm: t("archives.index.confirm.disable") } do
+                      i.material-icons visibility_off
+
+        .row.fixed-height
+          .col.m12
+            table.bordered
+              thead
+                tr
+                  th.check_all
+                    input.filled-in type="checkbox" id ="check_all"
+                    label for="check_all"
+                  th.category_name = Archive.human_attribute_name(:category_id)
+                  th.name = Archive.human_attribute_name(:name)
+                  th.enabled = User.human_attribute_name :enabled
+                  th.updated_user_id = Archive.human_attribute_name(:updated_user_id)
+                  th.updated_at = Archive.human_attribute_name(:updated_at)
+                  th.operation = t("shared.label.operation")
+
+              tbody
+                - @archives.each do |archive|
+                  tr class="#{archive.enabled? ? "" : "grey lighten-3"}"
+                    td.check_all
+                      = check_box_tag "ids[]", archive.id, false,
+                          id: "archive-#{archive.id}", class: "filled-in"
+                      label for="archive-#{archive.id}"
+
+                    td.category_name
+                      = truncate archive.category_name, length: 10
+
+                    td.name
+                      = truncate(archive.name, length: 50)
+
+                    td.enabled
+                      - if archive.enabled?
+                        span
+                          i.material-icons panorama_fish_eye
+                      - else
+                        span.red-text
+                          i.material-icons close
+
+                    td.updated_user_id
+                      - if archive.updated_user
+                        = truncate archive.updated_user_name, length: 10
+
+                    td.updated_at
+                      = l archive.updated_at
+
+                    td.operation
+                      .btn-group
+                        = link_to edit_archive_path(archive),
+                          class: "btn-floating blue-grey darken-3" do
+                          i.material-icons mode_edit
+
+                        = link_to archive_archive_assets_path(archive),
+                          class: "btn-floating blue-grey darken-3" do
+                          i.material-icons image
+                        - if current_user.admin?
+                          = link_to archive_path(archive),
+                              class: "btn-floating red",
+                              data: { confirm: t("shared.confirm.delete", target: archive.name) },
+                              method: :delete do
+                            i.material-icons delete
+
+      .row
+        .col.m12
+          .left
+            = entries_info @archives
+
+          .right
+            = paginate @archives

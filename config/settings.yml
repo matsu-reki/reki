@@ -1,0 +1,50 @@
+#
+# アプリケーションの設定
+#
+application:
+  # URL
+  url: "http://localhost:3000"
+  # ホスト名
+  host: "localshot:3000"
+
+#
+# Mecab の設定
+# 環境に合わせて settting.local.yml で値を上書きするこ
+#
+mecab:
+  # MECAB_PATH に設定するライブラリパス
+  lib: "/usr/lib/libmecab.so"
+
+  # システム辞書のディレクトリ（デフォルトの辞書を利用する場合はコメントアウトする）
+  dicdir: "/usr/lib/mecab/dic/mecab-ipadic-neologd"
+
+tag:
+  # 形態素解析でタグとして利用する要素の種別
+  morpheme:
+    - "固有名詞"
+
+archive:
+  tag:
+    maximum: 10
+
+  assets:
+    maximum: 10
+
+  relations:
+    maximum: 100 #ルートノードから最大距離
+
+# QGIS の設定
+qgis:
+
+  # QGIS の画像ファイルの設定
+  image:
+
+    # QGIS の画像ファイルのパス
+    root: ./tmp
+
+#
+# 共通語彙基盤
+#
+imi:
+  core: "http://imi.go.jp/ns/core/2"
+  mr: "http://localhost:3000/docs/imi"

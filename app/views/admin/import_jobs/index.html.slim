@@ -1,0 +1,53 @@
+.container.lg
+  .card
+    .card-content
+      .row
+        .col.m8
+          .left
+            div.content-title
+              = t("admin.import_jobs.index.title")
+
+        .col.m4
+          .right
+            .btn-group
+              = link_to admin_import_jobs_url,
+                  title: t("import_jobs.index.label.import"),
+                  class: "btn-floating blue-grey darken-3",
+                  method: :post do
+                i.material-icons backup
+
+
+      .row.fixed-height
+        .col.m12
+          table.bordered
+            thead
+              tr
+                th.updated_at = ImportJob.human_attribute_name(:updated_at)
+                th.user_id = ImportJob.human_attribute_name(:user_id)
+                th.state = ImportJob.human_attribute_name :state
+                th.operation = t("shared.label.operation")
+
+            tbody
+              - @import_jobs.each do |import_job|
+                  td.updated_at
+                    = l import_job.updated_at
+
+                  td.user_id
+                    - if import_job.user
+                      = truncate import_job.user_name, length: 10
+
+                  td.stete
+                    = import_job.state_t
+
+                  td
+                    = link_to admin_import_job_path(import_job),
+                      class: "btn-floating blue-grey darken-3" do
+                      i.material-icons pageview
+
+      .row
+        .col.m12
+          .left
+            = entries_info @import_jobs
+
+          .right
+            = paginate @import_jobs

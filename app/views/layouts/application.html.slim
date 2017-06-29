@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta charset="utf-8"
+    meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"
+
+    link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"
+
+    title
+      | 松江G空間プロジェクト
+
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body id="#{page_body_id}" data-controller="#{params[:controller]}" data-template="#{page_template}"
+
+    - if logged_in?
+      = render "layouts/header"
+
+    = yield
+
+    - if logged_in?
+      = flash_dialog

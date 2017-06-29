@@ -1,0 +1,35 @@
+.container
+  .row
+    .col.m12
+      .card
+        .card-content
+          h4.content-title タグ禁止用語登録内容
+
+          = form_for [:admin, tag_black_list] do |f|
+
+            = render "shared/error", model: tag_black_list
+
+            .row
+              .input-field.col.m6
+                = f.text_field :name
+                = f.label :name
+
+            .row
+              .col.m6
+                div style="width: 80px; display:inline-block;"
+                  = TagBlackList.human_attribute_name :enabled
+                span style="margin-right: 20px;"
+                  = f.radio_button :enabled, true, checked: tag_black_list.enabled?
+                  = f.label :enabled, t("shared.label.enabled"), value: true
+                span
+                  = f.radio_button :enabled, false, checked: !tag_black_list.enabled?
+                  = f.label :enabled, t("shared.label.disabled"), value: false
+            br
+
+            .row
+              .col.m12
+                .left
+                  = f.submit class: "btn"
+
+                .right
+                  = link_to t("shared.label.cancel"), admin_tag_black_lists_url, class: "btn red"

@@ -1,0 +1,39 @@
+.container
+  .row
+    .col.m12
+      .card
+        .card-content
+          h4.content-title 分類登録内容
+
+          = form_for [:admin, category] do |f|
+
+            = render "shared/error", model: category
+
+            .row
+              .input-field.col.m2
+                = f.number_field :code
+                = f.label :code
+
+            .row
+              .input-field.col.m6
+                = f.text_field :name
+                = f.label :name
+
+            .row
+              .col.m6
+                div style="width: 100px; display:inline-block;"
+                  = Category.human_attribute_name :enabled
+                span style="margin-right: 20px;"
+                  = f.radio_button :enabled, true, checked: category.enabled?
+                  = f.label :enabled, t("shared.label.enabled"), value: true
+                span
+                  = f.radio_button :enabled, false, checked: !category.enabled?
+                  = f.label :enabled, t("shared.label.disabled"), value: false
+            br
+            .row
+              .col.m12
+                .left
+                  = f.submit class: "btn"
+
+                .right
+                  = link_to t("shared.label.cancel"), admin_categories_url, class: "btn red"

@@ -1,0 +1,4 @@
+- %i(success warning alert default info).each do |type|
+  - if flash[type]
+    div class="#{type}-text"
+      = flash[type]

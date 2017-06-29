@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgis
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: reki_development
+
+test:
+  <<: *default
+  database: reki_test
+
+production:
+  <<: *default
+  database: reki_production
+  username: reki
+  password: <%= ENV['REKI_DATABASE_PASSWORD'] %>
+
+qgis:
+  <<: *default
+  database: reki_qgis

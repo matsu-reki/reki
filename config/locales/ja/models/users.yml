@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: E-Mail
+        enabled: 使用可否
+        login: ユーザID
+        name: ユーザ名
+        password: パスワード
+        password_confirmation : パスワード確認
+        role: 権限
+
+        created_at: 作成日時
+        updated_at: 更新日時
+
+    enums:
+       user:
+        role:
+          admin: 管理者
+          standard: 一般ユーザ
